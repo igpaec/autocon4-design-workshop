@@ -4,5 +4,16 @@ manufacturers:
     description: "{{ manufacturer }} Systems"
     platforms:
       - "!create_or_update:name": "Cisco IOS"
-        manufacturer_name: "{{ manufacturer }}"
+        manufacturer__name: "{{ manufacturer }}"
         network_driver: "cisco_ios"
+
+locations:
+  - "!create_or_update:name": "Greece"
+    location_type: "Region"
+    status__name: "Active"
+    child_locations:
+    {% for i in range(1,4) %}
+      - "!create_or_update:name": "ATH0{{ i }}"
+      location_type__name: "Site"
+      status__name: "Active"
+    {% endfor %}
